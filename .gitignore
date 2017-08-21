@@ -7,3 +7,4 @@
 /**/*.psd
 /**/Thumbs.db
 /**/*.DS_Store
+/app/index.html
