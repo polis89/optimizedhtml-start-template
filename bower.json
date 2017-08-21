@@ -1,0 +1,22 @@
+{
+  "name": "optimizedhtml",
+  "description": "OptimizedHTML - Start HTML Template",
+  "main": "index.js",
+  "authors": [
+    "WebDesign Master"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/polis89/optimizedhtml-start-template",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/libs/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "font-awesome": "^4.7.0"
+  }
+}

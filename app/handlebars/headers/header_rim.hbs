@@ -1,0 +1,86 @@
+<!-- HEADER -->
+	<header class="main_head">
+		<div class="top_line">
+			<div class="container">
+			<div class="logo img-fluid hidden-md hidden-lg">
+						<img src="img/logo.png" alt="ООО ОКР">
+						<p class="desc">{{siteName}}</p>
+					</div>
+				<div class="mail_adress hidden-md hidden-lg hidden-xs">
+					{{contacts.email}} <br>
+					<span>{{contacts.address}}</span>
+				</div>
+				<br class="visible-xs">
+				<div class="phone_call hidden-md hidden-lg popup_form">
+					{{contacts.phone}} <br>
+					
+					<div class="call_cont">						
+						<p>Заказать звонок</p>
+						<div class="phone_i">
+							<img src="img/sprites.png" alt="Связаться">
+						</div>
+					</div>
+				</div>
+				<div class="adress hidden-sm hidden-xs">
+					{{contacts.address}}
+				</div>
+
+				<div class="call hidden-sm hidden-xs popup_form">
+					<p>Заказать звонок</p>
+					<div class="phone_i">
+						<img src="img/sprites.png" alt="Связаться">
+					</div>
+				</div>				
+				<div class="phone hidden-sm hidden-xs">{{contacts.phone}}</strong></div>
+				<br class="visible-xs">
+				<div class="mail_to hidden-sm">{{contacts.email}}</div>
+				<div class="adress-xs visible-xs">
+					{{contacts.address}}
+				</div>
+			</div>
+		</div>
+		<div class="clearfix"></div>
+
+		<div class="mnu">
+			<div class="container">		
+				<div class="gr">
+					
+					<div class="logo img-fluid hidden-xs hidden-sm">
+						<img src="img/logo.png" alt="ООО ОКР">
+						<p class="desc">{{siteName}}</p>
+					</div>
+					<div class="mnu_p">	
+						<!-- Пункты меню -->
+						<div class="mnu_btn hidden-lg hidden-md">
+							<div class="burger">
+								<span> </span>
+								<span> </span>
+								<span> </span>
+							</div>
+								<p>Раскрыть меню</p>
+						</div>
+						
+						<ul class="hidden-xs hidden-sm">
+							<li class="page_item current_page_item"><a href="#">{{menu.[0]}}</a></li>
+							<li class="page_item "><a href="#">{{menu.[1]}}</a></li>
+							<li class="page_item "><a href="#">{{menu.[2]}}</a></li>
+							<li class="page_item "><a href="#">{{menu.[3]}}</a></li>
+							<li class="page_item "><a href="#">{{menu.[4]}}</a></li>
+							<li class="page_item "><a href="#">{{menu.[5]}}</a></li>
+						</ul>									
+					</div>
+				</div>			
+				</div>	
+					<div id="mnu_mob_top" class="mnu_mob hidden-md hidden-lg">
+						<ul>
+							<li class="page_item current_page_item"><a href="http://polies.ru/">{{menu.[0]}}</a></li>
+							<li class="page_item "><a href="#">{{menu.[1]}}</a></li>
+							<li class="page_item "><a href="#">{{menu.[2]}}</a></li>
+							<li class="page_item "><a href="#">{{menu.[3]}}</a></li>
+							<li class="page_item "><a href="#">{{menu.[4]}}</a></li>
+							<li class="page_item "><a href="#">{{menu.[5]}}</a></li>
+						</ul>										
+					</div>				
+			</div>
+	</header>
+<!-- END HEADER -->
