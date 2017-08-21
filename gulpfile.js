@@ -12,7 +12,8 @@ var gulp           = require('gulp'),
 		autoprefixer   = require('gulp-autoprefixer'),
 		ftp            = require('vinyl-ftp'),
 		notify         = require("gulp-notify"),
-		rsync          = require('gulp-rsync');
+		rsync          = require('gulp-rsync'),
+		handlebars     = require('gulp-compile-handlebars');
 
 // Скрипты проекта
 
@@ -126,3 +127,39 @@ gulp.task('removedist', function() { return del.sync('dist'); });
 gulp.task('clearcache', function () { return cache.clearAll(); });
 
 gulp.task('default', ['watch']);
+
+gulp.task('html', function () {
+    var templateData = {
+        siteName: 'Имя Сайта',
+        contacts: {
+		      email: 'example@example.com',
+		      phone: 'phone',
+		      address: 'г.Город, ул.Уличная 1-20'        	
+        },
+        menu: [
+        	'Пункт 1',
+        	'Пункт 2',
+        	'Пункт 3',
+        	'Пункт 4',
+        	'Пункт 5',
+        	'Пункт 6',
+        ]
+    },
+    options = {
+        ignorePartials: false, //ignores the unknown footer2 partial in the handlebars template, defaults to false 
+        partials : {
+            // footer : '<footer>the end</footer>'
+        },
+        batch : ['app/handlebars'],
+        helpers : {
+            capitals : function(str){
+                return str.toUpperCase();
+            }
+        }
+    }
+ 
+    return gulp.src('app/index.hbs')
+        .pipe(handlebars(templateData, options))
+        .pipe(rename('index.html'))
+        .pipe(gulp.dest('app'));
+});

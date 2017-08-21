@@ -1,6 +1,7 @@
 /node_modules/
 /dist/
 /libs/
+/app/libs/
 /.git/
 /app/css/
 /**/*.psd
