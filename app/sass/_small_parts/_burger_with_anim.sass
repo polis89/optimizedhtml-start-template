@@ -1,0 +1,26 @@
+//Add in block element
+//	$('.burger').on('click', function(){
+// 		$(this).toggleClass('active');
+// 	})
+.burger
+	display: block
+	width: 100%
+	// overflow: hidden
+	cursor: pointer
+	span
+		width: 100%
+		height: 3px
+		background-color: $c-burger-c
+		display: block
+		margin-bottom: 5px
+		transition: transform 0.4s, width 0.4s
+		position: relative
+		transform-origin: center center
+	&.active
+		span
+			&:nth-child(1)
+				transform: rotate(45deg) translateY(8px) translateX(3px)
+			&:nth-child(2)
+				width: 0
+			&:nth-child(3)
+				transform: rotate(-45deg) translateY(-8px) translateX(3px)
