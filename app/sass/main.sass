@@ -43,5 +43,34 @@ body
 	max-width: 100%
 	height: auto
 
+textarea:focus, 
+input:focus
+    outline: none
+
+.a:active, 
+.a:focus 
+	outline: none
+
+a 
+	outline: none
+
+
+.btn
+	display: inline-block
+	background-color: $c-btn
+	line-height: 16px
+	text-transform: uppercase
+	color: #FFFFFF
+	font-size: 14px
+	text-align: center
+	border-radius: 0
+	font-weight: 700
+	border: 3px $c-btn solid
+	padding: 6px 20px 4px;
+	&:hover,
+	&:active
+		color: #000
+		background-color: $c-btnh
+
 //Бургер с анимацией
 // @import "_small_parts/burger_with_anim"
