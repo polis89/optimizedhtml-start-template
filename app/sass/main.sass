@@ -30,7 +30,7 @@ html, body
 	height: 100%
 
 body
-	font-size: 16px
+	font-size: $f-size
 	min-width: 320px
 	position: relative
 	line-height: 1.75
@@ -73,19 +73,25 @@ ul
 .btn
 	display: inline-block
 	background-color: $c-btn
-	line-height: 16px
+	line-height: 1.65
 	text-transform: uppercase
 	color: #FFFFFF
-	font-size: 14px
+	font-size: $f-size
 	text-align: center
 	border-radius: 0
 	font-weight: 700
-	border: 3px $c-btn solid
-	padding: 6px 20px 4px;
+	// border: 3px $c-btn solid
+	padding: 0px 20px 0px
+	transition: background-color 0.4s
 	&:hover,
-	&:active
+	&:active,
+	&:focus
 		color: #000
 		background-color: $c-btnh
+
+
+
+// @import "_headers/polies"
 
 //Бургер с анимацией
 // @import "_small_parts/burger_with_anim"
