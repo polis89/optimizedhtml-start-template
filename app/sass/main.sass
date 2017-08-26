@@ -53,7 +53,22 @@ input:focus
 
 a 
 	outline: none
+	color: $c-a
+	&:hover,
+	&:focus
+		text-decoration: none
+		color: $c-a-hover
+		
+ul
+	list-style-type: none
+	margin: 0
+	padding: 0
+	li
+		margin: 0
+		padding: 0
 
+.accent
+	color: $c-a
 
 .btn
 	display: inline-block
@@ -74,3 +89,6 @@ a
 
 //Бургер с анимацией
 // @import "_small_parts/burger_with_anim"
+
+//Кнопка наверх
+// @import "_small_parts/up_btn"
