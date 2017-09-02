@@ -13,24 +13,67 @@ var gulp           = require('gulp'),
 		ftp            = require('vinyl-ftp'),
 		notify         = require("gulp-notify"),
 		rsync          = require('gulp-rsync'),
-		handlebars     = require('gulp-compile-handlebars');
+		handlebars     = require('gulp-compile-handlebars'),
+		jshint 				 = require('gulp-jshint');
 
 // Скрипты проекта
 
-gulp.task('common-js', function() {
-	return gulp.src([
-		'app/js/common.js',
-		])
-	.pipe(concat('common.min.js'))
-	// .pipe(uglify())
-	.pipe(gulp.dest('app/js'));
+gulp.task('default', ['watch']);
+
+gulp.task('watch', ['html', 'sass', 'js', 'browser-sync'], function() {
+	gulp.watch('app/sass/**/*.sass', ['sass']);
+	gulp.watch(['libs/**/*.js', 'app/js/common.js'], ['js']);
+	gulp.watch('app/**/*.hbs', ['reload']); 
 });
 
-gulp.task('js', ['common-js'], function() {
+gulp.task('reload', ['html'], function () {
+    browserSync.reload();
+});
+
+gulp.task('html', function () {
+    var templateData = {
+        siteName: 'Имя Сайта',
+        logo: 'Логотип',
+        contacts: {
+		      email: 'example@example.com',
+		      phone: 'phone',
+		      address: 'г.Город, ул.Уличная 1-20'        	
+        },
+        menu: [
+        	'Пункт 1',
+        	'Пункт 2',
+        	'Пункт 3',
+        	'Пункт 4',
+        ]
+    },
+    options = {
+        ignorePartials: false, //ignores the unknown footer2 partial in the handlebars template, defaults to false 
+        partials : {
+            // footer : '<footer>the end</footer>'
+        },
+        batch : ['app/handlebars'],
+        helpers : {
+            capitals : function(str){
+                return str.toUpperCase();
+            }
+        }
+    }
+ 
+    return gulp.src('app/*.hbs')
+        .pipe(handlebars(templateData, options))
+        .pipe(rename(function (path) {
+				  path.extname = ".html"
+				}))
+        .pipe(gulp.dest('app'));
+});
+
+gulp.task('js', function() {
 	return gulp.src([
 		// 'app/libs/jquery/dist/jquery.min.js',
-		'app/js/common.min.js', // Всегда в конце
-		])
+		'app/js/common.js', // Всегда в конце
+		])    
+	.pipe(jshint())
+  .pipe(jshint.reporter('default'))
 	.pipe(concat('scripts.min.js'))
 	// .pipe(uglify()) // Минимизировать весь js (на выбор)
 	.pipe(gulp.dest('app/js'))
@@ -59,22 +102,14 @@ gulp.task('sass', function() {
 	.pipe(browserSync.reload({stream: true}));
 });
 
-gulp.task('watch', ['html', 'sass', 'js', 'browser-sync'], function() {
-	gulp.watch('app/sass/**/*.sass', ['sass']);
-	gulp.watch(['libs/**/*.js', 'app/js/common.js'], ['js']);
-	gulp.watch('app/**/*.hbs', ['reload']); 
-});
-gulp.task('reload', ['html'], function () {
-    browserSync.reload();
-});
+//Build scripts
+gulp.task('build', ['removedist', 'imagemin', 'sass', 'js'], function() {
 
 gulp.task('imagemin', function() {
 	return gulp.src('app/img/**/*')
 	.pipe(cache(imagemin()))
 	.pipe(gulp.dest('dist/img')); 
 });
-
-gulp.task('build', ['removedist', 'imagemin', 'sass', 'js'], function() {
 
 	var buildFiles = gulp.src([
 		'app/*.html',
@@ -129,39 +164,3 @@ gulp.task('rsync', function() {
 gulp.task('removedist', function() { return del.sync('dist'); });
 gulp.task('clearcache', function () { return cache.clearAll(); });
 
-gulp.task('default', ['watch']);
-
-gulp.task('html', function () {
-    var templateData = {
-        siteName: 'Имя Сайта',
-        logo: 'Логотип',
-        contacts: {
-		      email: 'example@example.com',
-		      phone: 'phone',
-		      address: 'г.Город, ул.Уличная 1-20'        	
-        },
-        menu: [
-        	'Пункт 1',
-        	'Пункт 2',
-        	'Пункт 3',
-        	'Пункт 4',
-        ]
-    },
-    options = {
-        ignorePartials: false, //ignores the unknown footer2 partial in the handlebars template, defaults to false 
-        partials : {
-            // footer : '<footer>the end</footer>'
-        },
-        batch : ['app/handlebars'],
-        helpers : {
-            capitals : function(str){
-                return str.toUpperCase();
-            }
-        }
-    }
- 
-    return gulp.src('app/index.hbs')
-        .pipe(handlebars(templateData, options))
-        .pipe(rename('index.html'))
-        .pipe(gulp.dest('app'));
-});
