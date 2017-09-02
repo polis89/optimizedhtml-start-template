@@ -72,8 +72,6 @@ gulp.task('js', function() {
 		// 'app/libs/jquery/dist/jquery.min.js',
 		'app/js/common.js', // Всегда в конце
 		])    
-	.pipe(jshint())
-  .pipe(jshint.reporter('default'))
 	.pipe(concat('scripts.min.js'))
 	// .pipe(uglify()) // Минимизировать весь js (на выбор)
 	.pipe(gulp.dest('app/js'))
@@ -101,6 +99,19 @@ gulp.task('sass', function() {
 	.pipe(gulp.dest('app/css'))
 	.pipe(browserSync.reload({stream: true}));
 });
+
+gulp.task('lint', ['lint-js']);
+
+gulp.task('lint-js', function(){
+
+	return gulp.src([
+		// 'app/libs/jquery/dist/jquery.min.js',
+		'app/js/common.js', // Всегда в конце
+		])    
+	.pipe(jshint())
+  .pipe(jshint.reporter('default')) 
+	.pipe(gulp.dest('app/js'));
+})
 
 //Build scripts
 gulp.task('build', ['removedist', 'imagemin', 'sass', 'js'], function() {
