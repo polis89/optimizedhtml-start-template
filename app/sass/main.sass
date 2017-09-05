@@ -2,29 +2,31 @@
 @import "vars"
 
 @import "_mixins/media-mix"
+// use: @include linearGradient(#80c352, #368f52)
+// @import "_mixins/linear_grad"
 
 *::-webkit-input-placeholder
-	color: #666
+	color: $c-placeholder
 	opacity: 1
 
 *:-moz-placeholder
-	color: #666
+	color: $c-placeholder
 	opacity: 1
 
 *::-moz-placeholder
-	color: #666
+	color: $c-placeholder
 	opacity: 1
 
 *:-ms-input-placeholder
-	color: #666
+	color: $c-placeholder
 	opacity: 1
 
 body input:focus:required:invalid,
 body textarea:focus:required:invalid
-	color: #666
+	color: $c-placeholder
 body input:required:valid,
 body textarea:required:valid
-	color: #666
+	color: $c-placeholder
 
 html, body
 	height: 100%
@@ -38,18 +40,9 @@ body
 	overflow-x: hidden
 	opacity: 1
 
-.img-fluid
-	display: block
-	max-width: 100%
-	height: auto
-
 textarea:focus, 
 input:focus
     outline: none
-
-.a:active, 
-.a:focus 
-	outline: none
 
 a 
 	outline: none
@@ -67,10 +60,36 @@ ul
 		margin: 0
 		padding: 0
 
+p
+	line-height: 24px
+	font-size: $f-size
+	margin-bottom: 22px
+
+form
+	input[type="text"],
+	input[type="email"],
+	textarea
+		border: none
+		display: inline-block
+		border: #ebebeb 1px solid
+		border-radius: 3px
+		padding: 5px 10px 0px
+
+.h2
+	font-size: 30px
+	line-height: 24px
+	font-weight: 600
+
+.img-fluid
+	display: block
+	width: 100%
+	height: auto
+
 .accent
 	color: $c-a
 
-.btn
+.btn,
+input[type="submit"]
 	display: inline-block
 	background-color: $c-btn
 	line-height: 1.65
@@ -89,10 +108,28 @@ ul
 		color: #000
 		background-color: $c-btnh
 
+.icon
+	overflow: hidden
+	background-image: url('../img/icons.png')
+	position: relative
+	display: inline-block
+	vertical-align: middle
+	&.search
+		width: 12px
+		height: 12px
+		background-position: 0px -10px
+
 .top-line
 	background-color: $c-top-line
 	height: 40px
 
+.header
+	background-color: $c-header
+	height: 100px
+
+.footer
+	background-color: $c-footer
+	height: 100px
 
 // @import "_headers/polies"
 
@@ -101,3 +138,6 @@ ul
 
 //Кнопка наверх
 // @import "_small_parts/up_btn"
+
+//Овелей
+// @import "_small_parts/overlay"
