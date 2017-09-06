@@ -14,7 +14,8 @@ var gulp           = require('gulp'),
 		notify         = require("gulp-notify"),
 		rsync          = require('gulp-rsync'),
 		handlebars     = require('gulp-compile-handlebars'),
-		jshint 				 = require('gulp-jshint');
+		jshint 				 = require('gulp-jshint'),
+		htmlhint       = require("gulp-htmlhint");
 
 // Скрипты проекта
 
@@ -100,7 +101,7 @@ gulp.task('sass', function() {
 	.pipe(browserSync.reload({stream: true}));
 });
 
-gulp.task('lint', ['lint-js']);
+gulp.task('lint', ['lint-js', 'lint-html']);
 
 gulp.task('lint-js', function(){
 
@@ -111,7 +112,14 @@ gulp.task('lint-js', function(){
 	.pipe(jshint())
   .pipe(jshint.reporter('default')) 
 	.pipe(gulp.dest('app/js'));
-})
+});
+gulp.task('lint-html',function(){
+	return gulp.src("./app/*.html")
+	    .pipe(htmlhint({
+	    	"alt-require": true
+	    }))
+	    .pipe(htmlhint.reporter());
+});
 
 //Build scripts
 gulp.task('build', ['removedist', 'imagemin', 'sass', 'js'], function() {
