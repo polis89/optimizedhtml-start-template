@@ -1,0 +1,14 @@
+<div class="tabs">
+	<ul class="tabs__controls">
+	  {{#each controls}}
+		<li class="tabs__controls-item {{#if active}}active{{/if}}"><span class="tabs__controls-text">{{name}}</span>
+	  {{/each}}
+	</ul>
+	<ul class="tabs__content">
+	  {{#each content}}
+		<li class="tabs__content-item {{#if active}}active{{/if}}">
+			<span class="content">{{name}}</span>
+		</li>
+	  {{/each}}
+	</ul>
+</div>

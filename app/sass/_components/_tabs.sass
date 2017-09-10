@@ -1,0 +1,22 @@
+.tabs
+	.tabs__controls
+		.tabs__controls-item
+			cursor: pointer
+			position: relative
+			display: inline-block
+			padding: 5px 12px
+			color: $c-text
+			background-color: #ccc
+			z-index: 1
+			&.active
+				color: $c-a
+				background-color: $c-a
+				color: $c-text-white
+				z-index: 2
+	.tabs__content
+		padding: 12px
+		border: 1px solid $c-border
+		.tabs__content-item
+			display: none
+			&.active
+				display: block

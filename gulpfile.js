@@ -45,7 +45,33 @@ gulp.task('html', function () {
         	'Пункт 2',
         	'Пункт 3',
         	'Пункт 4',
-        ]
+        ],
+        tabsContent: {
+        	controls: [
+        		{
+        			name: 'Tab 1',
+        			active: true,
+        		},
+        		{
+        			name: 'Tab 2',
+        		},
+        		{
+        			name: 'Tab 3',
+        		},
+        	],
+        	content: [
+        		{
+        			name: 'Content 1',
+        			active: true,
+        		},
+        		{
+        			name: 'Content 2',
+        		},
+        		{
+        			name: 'Content 3',
+        		},        	
+        	]
+        },
     },
     options = {
         ignorePartials: false, //ignores the unknown footer2 partial in the handlebars template, defaults to false 
