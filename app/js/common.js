@@ -7,6 +7,7 @@ $(function() {
 	// tabsHandler();
 	// addWaypoints();
 	// addScrollTo();
+	// addMaskedInput();
 });
 
 function burger(){
@@ -140,4 +141,11 @@ function addScrollTo(){
     	scrollTop: $("#" + idToScroll).offset().top - 65
     }, 1000);
 	});
+}
+function addMaskedInput(){
+  // MaskedInput
+  $(".data").mask("99/99/9999");
+  $(".tel").mask("+ 7 (999) 999-99-99");
+  $(".cpf").mask("999.999.999-99");
+  $(".cnpj").mask("99.999.999/9999-99");
 }

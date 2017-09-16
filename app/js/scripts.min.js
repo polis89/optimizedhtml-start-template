@@ -2,6 +2,7 @@ $(function() {
 	// burger();
 	// dropdownMenuFixResize();
 	// toTopButton();
+	// tabsHandler();
 });
 
 function burger(){
@@ -27,5 +28,15 @@ function toTopButton(){
 	   $('html, body').animate({
 	       scrollTop: 0
 	   }, 1000);
+	});
+}
+function tabsHandler(){
+	$(".tabs__controls-item").click(function() {
+		const index = $(this).index();
+		$(this).siblings().removeClass('active');
+		$(this).addClass('active');
+		var tabsContent = $(this).closest('.tabs').find('.tabs__content-item');
+		tabsContent.removeClass('active');
+		tabsContent.eq(index).addClass('active');
 	});
 }
