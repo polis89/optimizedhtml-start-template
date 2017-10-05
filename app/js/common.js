@@ -8,7 +8,7 @@ $(function() {
 	// addWaypoints();
 	// addScrollTo();
 	// addMaskedInput();
-	addPopupBehavior();
+	// addPopupBehavior();
 });
 
 function addPopupBehavior(){
@@ -22,7 +22,6 @@ function addPopupBehavior(){
 				$('.popup').removeClass('active');
 		});
 	});
-}
 
 function burger(){
 	// Бургер с анимацией
@@ -162,4 +161,31 @@ function addMaskedInput(){
   $(".tel").mask("+ 7 (999) 999-99-99");
   $(".cpf").mask("999.999.999-99");
   $(".cnpj").mask("99.999.999/9999-99");
+}
+function fixRequiredSafari(){
+	$("form").on('submit', function(e) {
+
+    var ref = $(this).find("[required]");
+
+    $(ref).each(function(){
+        if ( $(this).val() == '' )
+        {
+            alert("Введите номер телефона");
+
+            $(this).focus();
+
+            e.preventDefault();
+            return false;
+        }
+    });  return true;
+	});
+}
+
+function removePlaceholdersOnClick(){
+	$('textarea, input[type="text"], input[type="tel"]').on('focus', function(){
+		$(this).addClass('hid-placeholder');
+	});
+	$('textarea, input[type="text"], input[type="tel"]').on('blur', function(){
+		$(this).removeClass('hid-placeholder');
+	});
 }
