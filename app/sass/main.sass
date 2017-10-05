@@ -3,12 +3,6 @@
 
 @import "_mixins/media-mix"
 
-// use: @include linearGradient(#80c352, #368f52)
-@import "_mixins/linear_grad"
-
-//use @include box-shadow
-@import "_mixins/box-shadow"
-
 *::-webkit-input-placeholder
 	color: $c-placeholder
 	opacity: 1
@@ -39,7 +33,7 @@ body
 	font-size: $f-size
 	min-width: 320px
 	position: relative
-	line-height: 1.75
+	line-height: 1.25
 	font-family: $r
 	overflow-x: hidden
 	opacity: 1
@@ -127,9 +121,7 @@ input[type="submit"]
 	background-color: $c-top-line
 	height: 40px
 
-.header
-	background-color: $c-header
-	height: 100px
+@import "header"
 
 .footer
 	background-color: $c-footer
@@ -146,3 +138,6 @@ input[type="submit"]
 
 //Табы
 // @import "_components/tabs"
+
+//Popup
+@import "_components/popup"

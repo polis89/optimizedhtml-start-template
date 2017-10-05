@@ -8,7 +8,21 @@ $(function() {
 	// addWaypoints();
 	// addScrollTo();
 	// addMaskedInput();
+	addPopupBehavior();
 });
+
+function addPopupBehavior(){
+	$('.header__btn').on('click', function(){
+		$('.popup').addClass('active');
+		$('.popup').animate({opacity: 1}, 500);
+	});
+	$('.popup__overlay, .popup__close').on('click', function(){
+		$('.popup').animate({opacity: 0}, 500,
+			function(){
+				$('.popup').removeClass('active');
+		});
+	});
+}
 
 function burger(){
 	// Бургер с анимацией
