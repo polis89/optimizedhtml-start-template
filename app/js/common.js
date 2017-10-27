@@ -148,8 +148,8 @@ function addWaypoints(){
 	}
 }
 function addScrollTo(){
-	$('a[data-scrollTo]').on('click',function(){
-		var idToScroll = $(this).attr('data-scrollTo');
+	$('a[data-scroll-to]').on('click',function(){
+		var idToScroll = $(this).attr('data-scroll-to');
     $('html, body').animate({
     	scrollTop: $("#" + idToScroll).offset().top - 65
     }, 1000);
