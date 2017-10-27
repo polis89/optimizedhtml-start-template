@@ -1,5 +1,5 @@
 $(function() {
-	// burger();
+	burger();
 	// dropdownMenuFixResize();
 	// toTopButton();
 	// activateSlickCarousel(); 
@@ -22,12 +22,13 @@ function addPopupBehavior(){
 				$('.popup').removeClass('active');
 		});
 	});
+}
 
 function burger(){
 	// Бургер с анимацией
 	$('.burger').on('click', function(){
 		$(this).toggleClass('active');
-		$('.nav-cont ul').slideToggle();
+		$('.header__menu').slideToggle();
 	})
 }
 function dropdownMenuFixResize(){

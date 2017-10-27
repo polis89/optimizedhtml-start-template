@@ -8,7 +8,13 @@
 			height: auto
 	&__menu
 		display: inline-block
+		@include xs{display: none}
 		li
 			display: inline-block
+			@include xs{display: block}
 	&__btn
 		float: right
+	&__burger-cont
+		width: 30px
+		display: none
+		@include xs{display: inline-block}
