@@ -24,7 +24,7 @@ gulp.task('default', ['watch']);
 gulp.task('watch', ['html', 'sass', 'js', 'browser-sync'], function() {
 	gulp.watch('app/sass/**/*.sass', ['sass']);
 	gulp.watch(['libs/**/*.js', 'app/js/common.js'], ['js']);
-	gulp.watch('app/**/*.hbs', ['reload']); 
+	gulp.watch('app/handlebars/**/*.hbs', ['reload']); 
 });
 
 gulp.task('reload', ['html'], function () {
@@ -74,7 +74,7 @@ gulp.task('html', function () {
         },
     },
     options = {
-        ignorePartials: false, //ignores the unknown footer2 partial in the handlebars template, defaults to false 
+        ignorePartials: true, //ignores the unknown footer2 partial in the handlebars template, defaults to false 
         partials : {
             // footer : '<footer>the end</footer>'
         },
@@ -86,7 +86,7 @@ gulp.task('html', function () {
         }
     }
  
-    return gulp.src('app/*.hbs')
+    return gulp.src('app/handlebars/*.hbs')
         .pipe(handlebars(templateData, options))
         .pipe(rename(function (path) {
 				  path.extname = ".html"
