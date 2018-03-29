@@ -9,6 +9,8 @@
   "author": "Dmitrii Polianskii",
   "license": "ISC",
   "devDependencies": {
+    "@fancyapps/fancybox": "^3.2.5",
+    "bootstrap": "^4.0.0",
     "browser-sync": "^2.18.12",
     "del": "^3.0.0",
     "gulp": "^3.9.1",
@@ -22,10 +24,11 @@
     "gulp-jshint": "^2.0.4",
     "gulp-notify": "^3.0.0",
     "gulp-rename": "^1.2.2",
-    "gulp-rsync": "0.0.8",
     "gulp-sass": "^3.1.0",
     "gulp-uglify": "^3.0.0",
     "gulp-util": "^3.0.8",
+    "jquery": "^3.3.1",
+    "slick-carousel": "^1.8.1",
     "vinyl-ftp": "^0.6.0"
   }
 }

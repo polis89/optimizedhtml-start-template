@@ -3,28 +3,16 @@
 
 @import "_mixins/media-mix"
 
-*::-webkit-input-placeholder
-	color: $c-placeholder
-	opacity: 1
-
-*:-moz-placeholder
-	color: $c-placeholder
-	opacity: 1
-
-*::-moz-placeholder
-	color: $c-placeholder
-	opacity: 1
-
-*:-ms-input-placeholder
-	color: $c-placeholder
-	opacity: 1
-
+*::-webkit-input-placeholder,
+*:-moz-placeholder,
+*::-moz-placeholder,
+*:-ms-input-placeholder,
 body input:focus:required:invalid,
-body textarea:focus:required:invalid
-	color: $c-placeholder
+body textarea:focus:required:invalid,
 body input:required:valid,
 body textarea:required:valid
 	color: $c-placeholder
+	opacity: 1
 
 html, body
 	height: 100%
@@ -58,26 +46,6 @@ ul
 		margin: 0
 		padding: 0
 
-p
-	line-height: 24px
-	font-size: $f-size
-	margin-bottom: 22px
-
-form
-	input[type="text"],
-	input[type="email"],
-	textarea
-		border: none
-		display: inline-block
-		border: #ebebeb 1px solid
-		border-radius: 3px
-		padding: 5px 10px 0px
-
-.h2
-	font-size: 30px
-	line-height: 24px
-	font-weight: 600
-
 .img-fluid
 	display: block
 	width: 100%
@@ -86,8 +54,7 @@ form
 .accent
 	color: $c-a
 
-.btn,
-input[type="submit"]
+.btn
 	display: inline-block
 	background-color: $c-btn
 	line-height: 1.65
@@ -106,7 +73,6 @@ input[type="submit"]
 		color: #000
 		background-color: $c-btnh
 
-@import "header"
 @import "sections"
 
 //Бургер с анимацией

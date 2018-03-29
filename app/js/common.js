@@ -3,26 +3,10 @@ $(function() {
 	// dropdownMenuFixResize();
 	// toTopButton();
 	// activateSlickCarousel(); 
-	// carouselControls();
-	// tabsHandler();
 	// addWaypoints();
 	// addScrollTo();
 	// addMaskedInput();
-	// addPopupBehavior();
 });
-
-function addPopupBehavior(){
-	$('.header__btn').on('click', function(){
-		$('.popup').addClass('active');
-		$('.popup').animate({opacity: 1}, 500);
-	});
-	$('.popup__overlay, .popup__close').on('click', function(){
-		$('.popup').animate({opacity: 0}, 500,
-			function(){
-				$('.popup').removeClass('active');
-		});
-	});
-}
 
 function burger(){
 	// Бургер с анимацией
@@ -47,16 +31,6 @@ function toTopButton(){
 	   $('html, body').animate({
 	       scrollTop: 0
 	   }, 1000);
-	});
-}
-function tabsHandler(){
-	$(".tabs__controls-item").click(function() {
-		const index = $(this).index();
-		$(this).siblings().removeClass('active');
-		$(this).addClass('active');
-		var tabsContent = $(this).closest('.tabs').find('.tabs__content-item');
-		tabsContent.removeClass('active');
-		tabsContent.eq(index).addClass('active');
 	});
 }
 function activateSlickCarousel(){
@@ -102,14 +76,6 @@ function activateSlickCarousel(){
 	    // settings: "unslick"
 	    // instead of a settings object
 	  ]
-	});
-}
-function carouselControls(){
-	$('.carousel-cont .left').on('click', function(){
-		$('.carousel').slick('slickPrev');
-	});
-	$('.carousel-cont .right').on('click', function(){
-		$('.carousel').slick('slickNext');
 	});
 }
 // require waypoints and animate.css(optional)

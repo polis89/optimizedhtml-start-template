@@ -1,19 +1,18 @@
 var gulp           = require('gulp'),
-		gutil          = require('gulp-util' ),
-		sass           = require('gulp-sass'),
+		handlebars     = require('gulp-compile-handlebars'),
 		browserSync    = require('browser-sync'),
+		sass           = require('gulp-sass'),
+		autoprefixer   = require('gulp-autoprefixer'),
+		cleanCSS       = require('gulp-clean-css'),
 		concat         = require('gulp-concat'),
 		uglify         = require('gulp-uglify'),
-		cleanCSS       = require('gulp-clean-css'),
+		gutil          = require('gulp-util' ),
 		rename         = require('gulp-rename'),
 		del            = require('del'),
 		imagemin       = require('gulp-imagemin'),
 		cache          = require('gulp-cache'),
-		autoprefixer   = require('gulp-autoprefixer'),
 		ftp            = require('vinyl-ftp'),
 		notify         = require("gulp-notify"),
-		rsync          = require('gulp-rsync'),
-		handlebars     = require('gulp-compile-handlebars'),
 		jshint 				 = require('gulp-jshint'),
 		htmlhint       = require("gulp-htmlhint");
 
@@ -21,10 +20,37 @@ var gulp           = require('gulp'),
 
 gulp.task('default', ['watch']);
 
-gulp.task('watch', ['html', 'sass', 'js', 'browser-sync'], function() {
-	gulp.watch('app/sass/**/*.sass', ['sass']);
+gulp.task('watch', ['html', 'css', 'js', 'browser-sync'], function() {
+	gulp.watch('app/sass/**/*.sass', ['css']);
 	gulp.watch(['libs/**/*.js', 'app/js/common.js'], ['js']);
 	gulp.watch('app/handlebars/**/*.hbs', ['reload']); 
+});
+
+gulp.task('css', ['sass'], function() {
+	return gulp.src([
+		'node_modules/bootstrap/dist/css/bootstrap.min.css',
+		// 'node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.css',
+		// 'node_modules/slick-carousel/slick/slick-theme.css',
+		'app/css/main.css',
+		])    
+	.pipe(concat('main.min.css'))
+	// .pipe(cleanCSS()) // Опционально, закомментировать при отладке
+	.pipe(gulp.dest('app/css'))
+	.pipe(browserSync.reload({stream: true}));
+});
+
+gulp.task('js', function() {
+	return gulp.src([
+		'node_modules/jquery/dist/jquery.min.js',
+		// 'node_modules/bootstrap/dist/js/bootstrap.min.js',
+		// 'node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.js',
+		// 'node_modules/slick-carousel/slick/slick.min.js',
+		'app/js/common.js', // Всегда в конце
+		])    
+	.pipe(concat('scripts.min.js'))
+	// .pipe(uglify({ mangle: false })) // Минимизировать весь js (на выбор)
+	.pipe(gulp.dest('app/js'))
+	.pipe(browserSync.reload({stream: true}));
 });
 
 gulp.task('reload', ['html'], function () {
@@ -33,57 +59,14 @@ gulp.task('reload', ['html'], function () {
 
 gulp.task('html', function () {
     var templateData = {
-        siteName: 'Имя Сайта',
-        logo: 'Логотип',
-        contacts: {
-		      email: 'example@example.com',
-		      phone: 'phone',
-		      address: 'г.Город, ул.Уличная 1-20'        	
-        },
-        menu: [
-        	'Пункт 1',
-        	'Пункт 2',
-        	'Пункт 3',
-        	'Пункт 4',
-        ],
-        tabsContent: {
-        	controls: [
-        		{
-        			name: 'Tab 1',
-        			active: true,
-        		},
-        		{
-        			name: 'Tab 2',
-        		},
-        		{
-        			name: 'Tab 3',
-        		},
-        	],
-        	content: [
-        		{
-        			name: 'Content 1',
-        			active: true,
-        		},
-        		{
-        			name: 'Content 2',
-        		},
-        		{
-        			name: 'Content 3',
-        		},        	
-        	]
-        },
+        siteName: 'Имя Сайта'
     },
     options = {
-        ignorePartials: true, //ignores the unknown footer2 partial in the handlebars template, defaults to false 
+        ignorePartials: true, //ignores the unknown partial 
         partials : {
             // footer : '<footer>the end</footer>'
         },
         batch : ['app/handlebars'],
-        helpers : {
-            capitals : function(str){
-                return str.toUpperCase();
-            }
-        }
     }
  
     return gulp.src('app/handlebars/*.hbs')
@@ -94,14 +77,12 @@ gulp.task('html', function () {
         .pipe(gulp.dest('app'));
 });
 
-gulp.task('js', function() {
-	return gulp.src([
-		// 'app/libs/jquery/dist/jquery.min.js',
-		'app/js/common.js', // Всегда в конце
-		])    
-	.pipe(concat('scripts.min.js'))
-	// .pipe(uglify()) // Минимизировать весь js (на выбор)
-	.pipe(gulp.dest('app/js'))
+gulp.task('sass', function() {
+	return gulp.src('app/sass/**/*.sass')
+	.pipe(sass({outputStyle: 'expand'}).on("error", notify.onError()))
+	.pipe(autoprefixer(['last 15 versions']))
+	// .pipe(cleanCSS()) // Опционально, закомментировать при отладке
+	.pipe(gulp.dest('app/css'))
 	.pipe(browserSync.reload({stream: true}));
 });
 
@@ -117,22 +98,13 @@ gulp.task('browser-sync', function() {
 	});
 });
 
-gulp.task('sass', function() {
-	return gulp.src('app/sass/**/*.sass')
-	.pipe(sass({outputStyle: 'expand'}).on("error", notify.onError()))
-	.pipe(rename({suffix: '.min', prefix : ''}))
-	.pipe(autoprefixer(['last 15 versions']))
-	// .pipe(cleanCSS()) // Опционально, закомментировать при отладке
-	.pipe(gulp.dest('app/css'))
-	.pipe(browserSync.reload({stream: true}));
-});
-
 gulp.task('lint', ['lint-js', 'lint-html']);
 
 gulp.task('lint-js', function(){
 
 	return gulp.src([
-		// 'app/libs/jquery/dist/jquery.min.js',
+		'node_modules/jquery/dist/jquery.min.js',
+		'node_modules/jquery/dist/jquery.min.js',
 		'app/js/common.js', // Всегда в конце
 		])    
 	.pipe(jshint())
@@ -177,33 +149,30 @@ gulp.task('imagemin', function() {
 
 gulp.task('deploy', function() {
 
+	const UPLOAD_DIR = "test"; 
+	if(!UPLOAD_DIR){
+		throw new Error('Specify UPLOAD_DIR');
+	} 
+
 	var conn = ftp.create({
-		host:      'hostname.com',
-		user:      'username',
-		password:  'userpassword',
+		host:      'ftp-srv74404.ht-systems.ru',
+		user:      'srv74404',
+		password:  '',
 		parallel:  10,
 		log: gutil.log
 	});
 
 	var globs = [
-	'dist/**',
-	'dist/.htaccess',
+	'app/css/**',
+	'app/fonts/**',
+	'app/img/**',
+	'app/js/**',
+	'app/*.html',
 	];
-	return gulp.src(globs, {buffer: false})
-	.pipe(conn.dest('/path/to/folder/on/server'));
+	return gulp.src(globs, {base: 'app/', buffer: false})        
+		.pipe( conn.newer( 'htdocs/' +  UPLOAD_DIR) ) // only upload newer files
+    .pipe( conn.dest( 'htdocs/' +  UPLOAD_DIR) );
 
-});
-
-gulp.task('rsync', function() {
-	return gulp.src('dist/**')
-	.pipe(rsync({
-		root: 'dist/',
-		hostname: 'username@yousite.com',
-		destination: 'yousite/public_html/',
-		archive: true,
-		silent: false,
-		compress: true
-	}));
 });
 
 gulp.task('removedist', function() { return del.sync('dist'); });
