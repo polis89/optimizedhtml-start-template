@@ -158,7 +158,7 @@ gulp.task('deploy', function() {
 	var conn = ftp.create({
 		host:      'ftp-srv74404.ht-systems.ru',
 		user:      'srv74404',
-		password:  'kVphRGJx',
+		password:  '',
 		parallel:  10,
 		log: gutil.log
 	});
