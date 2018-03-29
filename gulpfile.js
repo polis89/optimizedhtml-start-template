@@ -28,6 +28,7 @@ gulp.task('watch', ['html', 'css', 'js', 'browser-sync'], function() {
 
 gulp.task('css', ['sass'], function() {
 	return gulp.src([
+		// 'node_modules/normalize.css/normalize.css',
 		'node_modules/bootstrap/dist/css/bootstrap.min.css',
 		// 'node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.css',
 		// 'node_modules/slick-carousel/slick/slick-theme.css',
@@ -149,7 +150,7 @@ gulp.task('imagemin', function() {
 
 gulp.task('deploy', function() {
 
-	const UPLOAD_DIR = "test"; 
+	const UPLOAD_DIR = "surf"; 
 	if(!UPLOAD_DIR){
 		throw new Error('Specify UPLOAD_DIR');
 	} 
@@ -157,7 +158,7 @@ gulp.task('deploy', function() {
 	var conn = ftp.create({
 		host:      'ftp-srv74404.ht-systems.ru',
 		user:      'srv74404',
-		password:  '',
+		password:  'kVphRGJx',
 		parallel:  10,
 		log: gutil.log
 	});
