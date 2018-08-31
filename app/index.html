@@ -24,10 +24,10 @@
 	<!-- iOS Safari -->
 	<meta name="apple-mobile-web-app-status-bar-style" content="#000">
 
-	<style>body { opacity: 0; overflow-x: hidden; } html { background-color: #fff; }</style>
+	<!-- inject:css -->
+	<link rel="stylesheet" href="/app/libs/css/bootstrap.min.css">
+	<!-- endinject -->
 
-	<link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css">
-	<link rel="stylesheet" href="libs/font-awesome/css/font-awesome.min.css">
 	<link rel="stylesheet" href="css/main.min.css">
 
 </head>
@@ -69,7 +69,9 @@
 
 
 
-		<script src="libs/jquery/dist/jquery.min.js"></script>
+		<!-- inject:js -->
+		<script src="/app/libs/js/jquery.min.js"></script>
+		<!-- endinject -->
 		<script src="js/scripts.min.js"></script>
 </body>
 </html>

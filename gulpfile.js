@@ -14,11 +14,32 @@ var gulp           = require('gulp'),
 		ftp            = require('vinyl-ftp'),
 		notify         = require("gulp-notify"),
 		jshint 				 = require('gulp-jshint'),
+		inject = require('gulp-inject'),
 		htmlhint       = require("gulp-htmlhint");
 
 // Скрипты проекта
 
 gulp.task('default', ['watch']);
+
+
+gulp.task('copy_css', function () {
+	gulp.src([
+		'node_modules/bootstrap/dist/css/bootstrap.min.css',
+		// 'node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.css',
+		// 'node_modules/slick-carousel/slick/slick-theme.css'
+	])
+		.pipe(gulp.dest('app/libs/css'));
+});
+
+gulp.task('copy_js', function () {
+	gulp.src([
+		'node_modules/jquery/dist/jquery.min.js',
+		// 'node_modules/bootstrap/dist/js/bootstrap.min.js',
+		// 'node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.js',
+		// 'node_modules/slick-carousel/slick/slick.min.js'
+	])
+		.pipe(gulp.dest('app/libs/js'));
+});
 
 gulp.task('watch', ['html', 'css', 'js', 'browser-sync'], function() {
 	gulp.watch('app/sass/**/*.sass', ['css']);
@@ -28,13 +49,9 @@ gulp.task('watch', ['html', 'css', 'js', 'browser-sync'], function() {
 
 gulp.task('css', ['sass'], function() {
 	return gulp.src([
-		// 'node_modules/normalize.css/normalize.css',
-		'node_modules/bootstrap/dist/css/bootstrap.min.css',
-		// 'node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.css',
-		// 'node_modules/slick-carousel/slick/slick-theme.css',
 		'app/css/main.css',
 		])    
-	.pipe(concat('main.min.css'))
+	// .pipe(concat('main.min.css'))
 	// .pipe(cleanCSS()) // Опционально, закомментировать при отладке
 	.pipe(gulp.dest('app/css'))
 	.pipe(browserSync.reload({stream: true}));
@@ -42,13 +59,9 @@ gulp.task('css', ['sass'], function() {
 
 gulp.task('js', function() {
 	return gulp.src([
-		'node_modules/jquery/dist/jquery.min.js',
-		// 'node_modules/bootstrap/dist/js/bootstrap.min.js',
-		// 'node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.js',
-		// 'node_modules/slick-carousel/slick/slick.min.js',
 		'app/js/common.js', // Всегда в конце
 		])    
-	.pipe(concat('scripts.min.js'))
+	// .pipe(concat('scripts.min.js'))
 	// .pipe(uglify({ mangle: false })) // Минимизировать весь js (на выбор)
 	.pipe(gulp.dest('app/js'))
 	.pipe(browserSync.reload({stream: true}));
@@ -58,24 +71,35 @@ gulp.task('reload', ['html'], function () {
     browserSync.reload();
 });
 
-gulp.task('html', function () {
-    var templateData = {
-        siteName: 'Имя Сайта'
-    },
-    options = {
-        ignorePartials: true, //ignores the unknown partial 
-        partials : {
-            // footer : '<footer>the end</footer>'
-        },
-        batch : ['app/handlebars'],
-    }
- 
-    return gulp.src('app/handlebars/*.hbs')
-        .pipe(handlebars(templateData, options))
-        .pipe(rename(function (path) {
-				  path.extname = ".html"
-				}))
-        .pipe(gulp.dest('app'));
+gulp.task('html', ['handlebars', 'copy_css', 'copy_js'], function () {
+	var sources = gulp.src([
+		'app/libs/css/**/*.css',
+		'app/libs/js/**/*.js'
+		], { read: false });
+
+	return gulp.src('app/*.html')
+		.pipe(inject(sources))
+		.pipe(gulp.dest('app'));
+});
+
+gulp.task('handlebars', function () {
+	var templateData = {
+		siteName: 'Имя Сайта'
+		},
+		options = {
+			ignorePartials: true, //ignores the unknown partial 
+			partials: {
+				// footer : '<footer>the end</footer>'
+			},
+			batch: ['app/handlebars'],
+		};
+
+	return gulp.src('app/handlebars/*.hbs')
+		.pipe(handlebars(templateData, options))
+		.pipe(rename(function (path) {
+			path.extname = ".html"
+		}))
+		.pipe(gulp.dest('app'));
 });
 
 gulp.task('sass', function() {
