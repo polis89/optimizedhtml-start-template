@@ -14,7 +14,7 @@ var gulp           = require('gulp'),
 		ftp            = require('vinyl-ftp'),
 		notify         = require("gulp-notify"),
 		jshint 				 = require('gulp-jshint'),
-		inject = require('gulp-inject'),
+		inject				 = require('gulp-inject'),
 		htmlhint       = require("gulp-htmlhint");
 
 // Скрипты проекта
@@ -73,12 +73,12 @@ gulp.task('reload', ['html'], function () {
 
 gulp.task('html', ['handlebars', 'copy_css', 'copy_js'], function () {
 	var sources = gulp.src([
-		'app/libs/css/**/*.css',
-		'app/libs/js/**/*.js'
+		'./app/libs/css/**/*.css',
+		'./app/libs/js/**/*.js'
 		], { read: false });
 
 	return gulp.src('app/*.html')
-		.pipe(inject(sources))
+		.pipe(inject(sources, { relative: true }))
 		.pipe(gulp.dest('app'));
 });
 
