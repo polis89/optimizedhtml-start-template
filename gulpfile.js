@@ -22,12 +22,12 @@ var gulp           = require('gulp'),
 
 gulp.task('default', ['watch']);
 
-
 gulp.task('copy_css', function () {
 	gulp.src([
-		'node_modules/bootstrap/dist/css/bootstrap.min.css',
-		'node_modules/rangeslider.js/dist/rangeslider.css',
-		'node_modules/slick-carousel/slick/slick.css',
+		'node_modules/normalize.css/normalize.css',
+		// 'node_modules/bootstrap/dist/css/bootstrap.min.css',
+		// 'node_modules/rangeslider.js/dist/rangeslider.css',
+		// 'node_modules/slick-carousel/slick/slick.css',
 		// 'node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.css',
 		// 'node_modules/slick-carousel/slick/slick-theme.css'
 	])
@@ -37,8 +37,8 @@ gulp.task('copy_css', function () {
 gulp.task('copy_js', function () {
 	gulp.src([
 		'node_modules/jquery/dist/jquery.min.js',
-		'node_modules/rangeslider.js/dist/rangeslider.min.js',
-		'node_modules/slick-carousel/slick/slick.min.js',
+		// 'node_modules/rangeslider.js/dist/rangeslider.min.js',
+		// 'node_modules/slick-carousel/slick/slick.min.js',
 		// 'node_modules/bootstrap/dist/js/bootstrap.min.js',
 		// 'node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.js',
 		// 'node_modules/slick-carousel/slick/slick.min.js'

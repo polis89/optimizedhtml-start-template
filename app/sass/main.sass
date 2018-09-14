@@ -3,6 +3,9 @@
 
 @import "_mixins/media-mix"
 
+*
+	box-sizing: border-box
+
 *::-webkit-input-placeholder
 	color: $c-placeholder
 	opacity: 1
@@ -88,11 +91,16 @@ ul
 .accent
 	color: $c-a
 
-.container
-	@media (min-width: 992px)
-		width: 750px
-	@media (min-width: 1200px)
-		width: 1150px
+.wrapper
+	width: 1200px
+	margin: 0 auto
+	padding: 0 15px
+	@media (max-width: 1200px)
+		width: 992px
+	@media (max-width: 992px)
+		width: 768px
+	@media (max-width: 768px)
+		width: 100%
 
 .btn
 	display: inline-block
