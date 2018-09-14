@@ -3,25 +3,59 @@
 
 @import "_mixins/media-mix"
 
-*::-webkit-input-placeholder,
-*:-moz-placeholder,
-*::-moz-placeholder,
-*:-ms-input-placeholder,
-body input:focus:required:invalid,
-body textarea:focus:required:invalid,
-body input:required:valid,
+*::-webkit-input-placeholder
+	color: $c-placeholder
+	opacity: 1
+*:-moz-placeholder
+	color: $c-placeholder
+	opacity: 1
+*::-moz-placeholder
+	color: $c-placeholder
+	opacity: 1
+*:-ms-input-placeholder
+	color: $c-placeholder
+	opacity: 1
+input:-moz-placeholder
+	color: $c-placeholder
+	opacity: 1
+input::placeholder
+	color: $c-placeholder
+	opacity: 1
+body input:required:valid
+	color: $c-placeholder
+	opacity: 1
 body textarea:required:valid
 	color: $c-placeholder
 	opacity: 1
+body input:focus:required:invalid
+	opacity: 1
+	border-color: $c-red
+body textarea:focus:required:invalid
+	opacity: 1
+	border-color: $c-red
+// .checkbox-container input:invalid + label .checkbox-ovelay
+// 	border-color: $c-red
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button
+	-webkit-appearance: none
+	margin: 0
+
+input[type="number"]
+	-moz-appearance: textfield
+
+input[type="number"]:hover,
+input[type="number"]:focus
+	-moz-appearance: textfield
 
 html, body
 	height: 100%
 
 body
 	font-size: $f-size
+	line-height: 20px
 	min-width: 320px
 	position: relative
-	line-height: 1.3
 	font-family: $r
 	overflow-x: hidden
 	opacity: 1
@@ -35,7 +69,7 @@ a
 	color: $c-link
 	&:hover,
 	&:focus
-		text-decoration: none
+		text-decoration: underline
 		color: $c-link-h
 		
 ul
@@ -54,24 +88,124 @@ ul
 .accent
 	color: $c-a
 
+.container
+	@media (min-width: 992px)
+		width: 750px
+	@media (min-width: 1200px)
+		width: 1150px
+
 .btn
 	display: inline-block
-	background-color: $c-btn
-	line-height: 1.65
-	text-transform: uppercase
-	color: #FFFFFF
-	font-size: $f-size
+	background-color: $c-a
+	line-height: normal
+	color: #000
+	font-size: 16px
 	text-align: center
 	border-radius: 0
-	font-weight: 700
-	// border: 3px $c-btn solid
-	padding: 0px 20px 0px
-	transition: background-color 0.4s
+	font-weight: 400
+	padding: 13px 39px 13px
+	transition: background-color 0.4s, border-color 0.4s
+	text-transform: none
+	border: 1px solid $c-a
+	cursor: pointer
 	&:hover,
 	&:active,
 	&:focus
-		color: #000
-		background-color: $c-btnh
+		background-color: $c-a-d
+		border-color: $c-a-d
+	&.btn-outline
+		background: #ffffff
+		&:hover,
+		&:active,
+		&:focus
+			background-color: $c-a
+			border-color: $c-a
+
+.h1
+	font-weight: 700
+	font-size: 32px
+	line-height: normal
+	margin-bottom: 30px
+	@media (max-width: 767px)
+		text-align: center
+		margin-bottom: 24px
+
+.h2
+	font-size: 20px
+	line-height: 26px
+	font-weight: 700
+	margin-bottom: 16px
+
+.h3
+	font-size: 18px
+	line-height: 23px
+	font-weight: 500
+
+// Custom select
+/*the container must be positioned relative:*/
+.custom-select
+	position: relative
+	text-align: left
+
+.custom-select select
+	display: none //hide original SELECT element
+
+
+.select-selected:after
+	position: absolute
+	content: ""
+	top: 17px
+	right: 10px
+	width: 0
+	height: 0
+	border: 6px solid transparent
+	border-color: $c-border transparent transparent transparent
+
+/*point the arrow upwards when the select box is open (active):*/
+.select-selected.select-arrow-active:after
+	top: 10px
+	border-color: transparent transparent $c-border transparent
+
+/*style the items (options), including the selected item:*/
+.select-items div
+	color: $c-text
+	padding: 16px 8px 0px
+	cursor: pointer
+
+.select-selected 
+	color: $c-text
+	padding: 10px 8px 6px
+	border: 1px solid transparent
+	// border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent
+	cursor: pointer
+	
+.select-selected
+	background-color: transparent
+	border: 1px solid $c-border
+	height: 40px
+	&.init
+		color: $c-border
+
+/*style items (options):*/
+.select-items 
+	position: absolute
+	background-color: white
+	border: 1px solid $c-border
+	top: 100%
+	left: 0
+	right: 0
+	z-index: 99
+	border-top: none
+	padding-bottom: 16px
+
+/*hide the items when the select box is closed:*/
+.select-hide
+	display: none
+
+.select-items div:hover, .same-as-selected
+	color: $c-link
+	// background-color: rgba(0, 0, 0, 0.1)
+
 
 @import "sections"
 

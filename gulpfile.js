@@ -15,6 +15,7 @@ var gulp           = require('gulp'),
 		notify         = require("gulp-notify"),
 		jshint 				 = require('gulp-jshint'),
 		inject				 = require('gulp-inject'),
+		wait 					 = require('gulp-wait'),
 		htmlhint       = require("gulp-htmlhint");
 
 // Скрипты проекта
@@ -25,6 +26,8 @@ gulp.task('default', ['watch']);
 gulp.task('copy_css', function () {
 	gulp.src([
 		'node_modules/bootstrap/dist/css/bootstrap.min.css',
+		'node_modules/rangeslider.js/dist/rangeslider.css',
+		'node_modules/slick-carousel/slick/slick.css',
 		// 'node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.css',
 		// 'node_modules/slick-carousel/slick/slick-theme.css'
 	])
@@ -34,6 +37,8 @@ gulp.task('copy_css', function () {
 gulp.task('copy_js', function () {
 	gulp.src([
 		'node_modules/jquery/dist/jquery.min.js',
+		'node_modules/rangeslider.js/dist/rangeslider.min.js',
+		'node_modules/slick-carousel/slick/slick.min.js',
 		// 'node_modules/bootstrap/dist/js/bootstrap.min.js',
 		// 'node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.js',
 		// 'node_modules/slick-carousel/slick/slick.min.js'
@@ -61,7 +66,7 @@ gulp.task('js', function() {
 	return gulp.src([
 		'app/js/common.js', // Всегда в конце
 		])    
-	// .pipe(concat('scripts.min.js'))
+	.pipe(concat('scripts.min.js'))
 	// .pipe(uglify({ mangle: false })) // Минимизировать весь js (на выбор)
 	.pipe(gulp.dest('app/js'))
 	.pipe(browserSync.reload({stream: true}));
@@ -104,6 +109,7 @@ gulp.task('handlebars', function () {
 
 gulp.task('sass', function() {
 	return gulp.src('app/sass/**/*.sass')
+	.pipe(wait(1500))
 	.pipe(sass({outputStyle: 'expand'}).on("error", notify.onError()))
 	.pipe(autoprefixer(['last 15 versions']))
 	// .pipe(cleanCSS()) // Опционально, закомментировать при отладке
