@@ -3,9 +3,6 @@
 
 @import "_mixins/media-mix"
 
-*
-	box-sizing: border-box
-
 *::-webkit-input-placeholder
 	color: $c-placeholder
 	opacity: 1
@@ -63,6 +60,9 @@ body
 	overflow-x: hidden
 	opacity: 1
 
+textarea
+	resize: none
+		
 textarea:focus, 
 input:focus
     outline: none
@@ -91,16 +91,11 @@ ul
 .accent
 	color: $c-a
 
-.wrapper
-	width: 1200px
-	margin: 0 auto
-	padding: 0 15px
-	@media (max-width: 1200px)
-		width: 992px
-	@media (max-width: 992px)
-		width: 768px
-	@media (max-width: 768px)
-		width: 100%
+.container
+	@media (min-width: 992px)
+		width: 750px
+	@media (min-width: 1200px)
+		width: 1150px
 
 .btn
 	display: inline-block
@@ -128,15 +123,22 @@ ul
 		&:focus
 			background-color: $c-a
 			border-color: $c-a
+	&.btn-full
+		width: 100%
+	&.btn-small
+		padding: 8px 16px 8px
+		font-size: 14px
+		line-height: 16px
+	&.btn-big
+		padding-left: 63px
+		padding-right: 63px
+		
 
 .h1
 	font-weight: 700
 	font-size: 32px
 	line-height: normal
 	margin-bottom: 30px
-	@media (max-width: 767px)
-		text-align: center
-		margin-bottom: 24px
 
 .h2
 	font-size: 20px
