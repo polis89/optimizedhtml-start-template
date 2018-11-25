@@ -54,6 +54,7 @@ html, body
 	height: 100%
 
 body
+	background: #e2e2e2
 	font-size: $f-size
 	line-height: 1.33
 	min-width: 320px
@@ -62,6 +63,8 @@ body
 	font-family: $r
 	overflow-x: hidden
 	opacity: 1
+	@media (max-width: 1199px)
+		font-size: 16px
 
 textarea
 	resize: none
@@ -100,28 +103,47 @@ ul
 	padding-left: 20px
 	padding-right: 20px
 	margin: 0 auto
+	@media (max-width: 1199px)
+		width: 737px
+		padding-left: 15px
+		padding-right: 15px
+	@media (max-width: 767px)
+		width: 100%
+		padding-left: 15px
+		padding-right: 15px
 
 .btn
 	display: inline-block
-	background-color: $c-a
+	background-color: #000000
+	color: $c-a
 	line-height: normal
-	color: #fff
-	font-size: 18px
-	font-weight: 400
 	text-align: center
 	border-radius: 0
-	padding: 14px 20px 13px
-	transition: background-color 0.4s, border-color 0.4s
+	transition: all 0.4s
 	text-transform: none
-	border: 1px solid $c-a
+	font-size: 24px
+	border: 2px solid #000
 	cursor: pointer
+	font-weight: 400
+	padding: 11px 37px 12px
+	@media (max-width: 1199px)
+		font-size: 20px
 	&:hover,
 	&:active,
 	&:focus
-		background-color: $c-a-d
-		border-color: $c-a-d
+		background-color: $c-a
 		text-decoration: none
-		color: #ffffff
+		color: #000
+	&.inverted
+		background-color: $c-a
+		text-decoration: none
+		color: #000
+		&:hover,
+		&:active,
+		&:focus
+			background-color: #000000
+			color: $c-a
+
 	&.btn-outline
 		background: #ffffff
 		&:hover,
@@ -135,6 +157,7 @@ ul
 		padding: 8px 16px 8px
 		font-size: 14px
 		line-height: 16px
+		text-decoration: underline
 	&.btn-big
 		padding-left: 63px
 		padding-right: 63px
@@ -150,10 +173,12 @@ ul
 	color: $c-text
 
 .h2
-	font-size: 20px
-	line-height: 26px
-	font-weight: 700
-	margin-bottom: 16px
+	font-size: 72px
+	font-weight: 800
+	font-style: italic
+	text-transform: uppercase
+	@media (max-width: 767px)
+		font-size: 36px
 
 .h3
 	font-size: 18px
@@ -261,6 +286,7 @@ ul
 			left: 3px
 
 @import "sections"
+@import "popup"
 
 //Бургер с анимацией
 @import "_small_parts/burger_with_anim"

@@ -1,11 +1,46 @@
 $(function() {
 	// customSelect();
 	// addScrollTo();
+	// popups();
 	// toTopButton();
 	// addWaypoints();
 	// addMaskedInput();
 	// activateSlickCarousel();
 });
+
+function popups() {
+	$('.open-popup-link').magnificPopup({
+		type: 'inline',
+		closeMarkup: '<button title="%title%" type="button" class="mfp-close"><img class="mfp-close" src="./img/close.png" alt="alt"></button>',
+		fixedContentPos: false, // Always set it to false
+		midClick: true // Always set it to true
+	});
+	$('.mfp-close').on('click', function () {
+		console.log('test');
+		
+		$.magnificPopup.close();
+	})
+	// var page = window.location.href.split('/').pop();
+	// if (page == 'thanks.html') {
+	// 	$.magnificPopup.open({
+	// 		items: {
+	// 			src: '#thanks'
+	// 		},
+	// 		fixedContentPos: false, // Always set it to false
+	// 		midClick: true, // Always set it to true
+	// 		type: 'inline'
+	// 	});
+	// } else if (page == 'thanks.html?call') {
+	// 	$.magnificPopup.open({
+	// 		items: {
+	// 			src: '#thankscall'
+	// 		},
+	// 		fixedContentPos: false, // Always set it to false
+	// 		midClick: true, // Always set it to true
+	// 		type: 'inline'
+	// 	});
+	// }
+}
 
 function customSelect() {
 	var x, i, j, selElmnt, a, b, c;

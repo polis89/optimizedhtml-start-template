@@ -27,6 +27,7 @@ gulp.task('copy_css', function () {
 	var index = 1;
 	gulp.src([
 		'node_modules/normalize.css/normalize.css',
+		// 'node_modules/magnific-popup/dist/magnific-popup.css',
 		// 'node_modules/rangeslider.js/dist/rangeslider.css',
 		// 'node_modules/bootstrap/dist/css/bootstrap.min.css',
 		// 'node_modules/hint.css/hint.min.css',
@@ -44,6 +45,7 @@ gulp.task('copy_js', function () {
 	var index = 1;
 	gulp.src([
 		'node_modules/jquery/dist/jquery.min.js',
+		// 'node_modules/magnific-popup/dist/jquery.magnific-popup.min.js',
 		// 'node_modules/rangeslider.js/dist/rangeslider.min.js',
 		// 'node_modules/slick-carousel/slick/slick.min.js',
 		// 'node_modules/bootstrap/dist/js/bootstrap.min.js',
