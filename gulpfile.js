@@ -50,7 +50,8 @@ gulp.task('copy_js', function () {
 		// 'node_modules/slick-carousel/slick/slick.min.js',
 		// 'node_modules/bootstrap/dist/js/bootstrap.min.js',
 		// 'node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.js',
-		// 'node_modules/slick-carousel/slick/slick.min.js'
+		// 'node_modules/slick-carousel/slick/slick.min.js',
+		// 'node_modules/jquery-mask-plugin/dist/jquery.mask.min.js',
 	])
 		.pipe(rename(function (path) {
 			path.basename = index++ + "-" + path.basename

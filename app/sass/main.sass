@@ -66,6 +66,18 @@ body
 	@media (max-width: 1199px)
 		font-size: 16px
 
+body.noscroll
+	overflow-y: hidden!important
+
+.mfp-wrap
+	overflow-y: scroll
+
+input,
+form
+	margin: 0
+	padding: 0
+	border: none
+
 textarea
 	resize: none
 		
@@ -90,10 +102,20 @@ ul
 		margin: 0
 		padding: 0
 
-.img-fluid
-	display: block
-	width: 100%
-	height: auto
+.hidden-lg
+	@media (min-width: 990px)
+		display: none !important
+
+.hidden-sm
+	@media (max-width: 990px)
+		display: none !important
+	&.visible-xs
+		@media (max-width: 767px)
+			display: block !important
+
+.hidden-xs
+	@media (max-width: 767px)
+		display: none !important
 
 .accent
 	color: $c-a

@@ -6,6 +6,7 @@ $(function() {
 	// addWaypoints();
 	// addMaskedInput();
 	// activateSlickCarousel();
+	// fileInput();
 });
 
 function popups() {
@@ -13,11 +14,17 @@ function popups() {
 		type: 'inline',
 		closeMarkup: '<button title="%title%" type="button" class="mfp-close"><img class="mfp-close" src="./img/close.png" alt="alt"></button>',
 		fixedContentPos: false, // Always set it to false
-		midClick: true // Always set it to true
+		midClick: true, // Always set it to true
+		callbacks: {
+			open: function () {
+				$('body').addClass('noscroll');
+			},
+			close: function () {
+				$('body').removeClass('noscroll');
+			}
+		}
 	});
 	$('.mfp-close').on('click', function () {
-		console.log('test');
-		
 		$.magnificPopup.close();
 	})
 	// var page = window.location.href.split('/').pop();
@@ -225,9 +232,123 @@ function addScrollTo(){
 	});
 }
 function addMaskedInput(){
-  // MaskedInput
+	// MaskedInput
+	$(".validate-tel").each(function (i, el) {
+		var options = {
+			onComplete: function (cep) {
+				$(el).removeClass('incomplete');
+				$(el).removeClass('invalid-field');
+			},
+			onChange: function (cep) {
+				$(el).addClass('incomplete');
+			}
+		};
+		$(el).mask("+ 373 9999-99-99", options);
+	})
   $(".data").mask("99/99/9999");
   $(".tel").mask("+ 7 (999) 999-99-99");
   $(".cpf").mask("999.999.999-99");
   $(".cnpj").mask("99.999.999/9999-99");
+}
+
+function fileInput() {
+	$('.file-input-cont input').on('change', function () {
+		var filePath = $(this).val();
+		if (filePath.length > 0) {
+			filePath = filePath.split(/(\\|\/)/g).pop()
+		} else {
+		}
+	})
+}
+
+function validateForm() {
+	// this must be bounded to form element
+	if (!this || this.length == 0) {
+		return;
+	}
+	var form = $(this);
+	var validated = true;
+	// Check required fields
+	form.find('.required').each(function (i, el) {
+		if ($(el).val().length < 1) {
+			$(el).addClass('invalid-field');
+			validated = false;
+		} else {
+			$(el).removeClass('invalid-field');
+		}
+	})
+	form.find('.validate-tel').each(function (i, el) {
+		if ($(el).val().length < 1) return;
+		if ($(el).hasClass('incomplete')) {
+			$(el).addClass('invalid-field');
+			validated = false;
+		} else {
+			$(el).removeClass('invalid-field');
+		}
+	})
+	form.find('.validate-text').each(function (i, el) {
+		if ($(el).val().length < 1) return;
+		var reg = /^[^\d\s!@£$%^&*()+=]+$/;
+		var minTextLength = 5;
+		if ($(el).val().match(reg) && $(el).val().length >= minTextLength) {
+			$(el).removeClass('invalid-field');
+		} else {
+			$(el).addClass('invalid-field');
+			validated = false;
+		}
+	})
+	form.find('.validate-email').each(function (i, el) {
+		if ($(el).val().length < 1) return;
+		var reg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		if ($(el).val().toLowerCase().match(reg)) {
+			$(el).removeClass('invalid-field');
+		} else {
+			$(el).addClass('invalid-field');
+			validated = false;
+		}
+	})
+	form.find('.required-select').each(function (i, el) {
+		if ($(el).find('select').val()) {
+			$(el).removeClass('invalid-field');
+		} else {
+			$(el).addClass('invalid-field');
+			validated = false;
+		}
+	})
+	if (!validated) {
+		$(this).addClass('invalid-form');
+	} else {
+		$(this).removeClass('invalid-form');
+	}
+	return validated;
+}
+
+function formSubmittion() {
+
+	$('.form-validate').on('submit', function (e) {
+		if (validateForm.apply(this)) {
+			// Form validated
+			if ($(this).attr('data-thanks').length > 0) {
+				e.preventDefault();
+				e.stopPropagation();
+				openPopup($(this).attr('data-thanks'));
+			}
+			return true;
+		} else {
+			e.preventDefault();
+			e.stopPropagation();
+			return false;
+		}
+	});
+}
+
+function openPopup(popupId) {
+	$.magnificPopup.open({
+		items: {
+			src: '#' + popupId
+		},
+		fixedContentPos: false, // Always set it to false
+		midClick: true, // Always set it to true
+		type: 'inline'
+	});
 }
