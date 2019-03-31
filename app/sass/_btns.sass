@@ -1,0 +1,47 @@
+.btn
+	display: inline-block
+	background-color: #000000
+	color: $c-a
+	line-height: normal
+	text-align: center
+	border-radius: 0
+	transition: all 0.4s
+	text-transform: none
+	font-size: 24px
+	border: 2px solid #000
+	cursor: pointer
+	font-weight: 400
+	padding: 11px 37px 12px
+	&:hover,
+	&:active,
+	&:focus
+		background-color: $c-a
+		text-decoration: none
+		color: #000
+	&.inverted
+		background-color: $c-a
+		text-decoration: none
+		color: #000
+		&:hover,
+		&:active,
+		&:focus
+			background-color: #000000
+			color: $c-a
+
+	&.btn-outline
+		background: #ffffff
+		&:hover,
+		&:active,
+		&:focus
+			background-color: $c-a
+			border-color: $c-a
+	&.btn-full
+		width: 100%
+	&.btn-small
+		padding: 8px 16px 8px
+		font-size: 14px
+		line-height: 16px
+		text-decoration: underline
+	&.btn-big
+		padding-left: 63px
+		padding-right: 63px

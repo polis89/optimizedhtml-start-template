@@ -5,21 +5,6 @@
 
 *
 	box-sizing: border-box
-*::-webkit-input-placeholder
-	color: $c-placeholder
-	opacity: 1
-*:-moz-placeholder
-	color: $c-placeholder
-	opacity: 1
-*::-moz-placeholder
-	color: $c-placeholder
-	opacity: 1
-*:-ms-input-placeholder
-	color: $c-placeholder
-	opacity: 1
-input:-moz-placeholder
-	color: $c-placeholder
-	opacity: 1
 input::placeholder
 	color: $c-placeholder
 	opacity: 1
@@ -54,7 +39,7 @@ html, body
 	height: 100%
 
 body
-	background: #e2e2e2
+	background: $body-bg
 	font-size: $f-size
 	line-height: 1.33
 	min-width: 320px
@@ -63,11 +48,13 @@ body
 	font-family: $r
 	overflow-x: hidden
 	opacity: 1
-	@media (max-width: 1199px)
-		font-size: 16px
+	@media (max-width: $md-breakpoint)
+		font-size: $f-size-md
+	@media (max-width: $xs-breakpoint)
+		font-size: $f-size-xs
 
 body.noscroll
-	overflow-y: hidden!important
+	overflow-y: hidden !important
 
 .mfp-wrap
 	overflow-y: scroll
@@ -102,175 +89,72 @@ ul
 		margin: 0
 		padding: 0
 
+.wrapper
+	width: $wrapper-xl + 2 * $wrapper-xl-pad
+	padding-left: $wrapper-xl-pad
+	padding-right: $wrapper-xl-pad
+	margin: 0 auto
+	@media (max-width: $md-breakpoint)
+		width: $wrapper-md + 2 * $wrapper-md-pad
+		padding-left: $wrapper-md-pad
+		padding-right: $wrapper-md-pad
+	@media (max-width: $xs-breakpoint)
+		width: $wrapper-xs
+		padding-left: $wrapper-xs-pad
+		padding-right: $wrapper-xs-pad
+
 .hidden-lg
-	@media (min-width: 990px)
+	@media (min-width: $md-breakpoint + 1)
 		display: none !important
 
-.hidden-sm
-	@media (max-width: 990px)
+.hidden-md
+	@media (max-width: $md-breakpoint)
 		display: none !important
 	&.visible-xs
-		@media (max-width: 767px)
+		@media (max-width: $xs-breakpoint)
 			display: block !important
 
 .hidden-xs
-	@media (max-width: 767px)
+	@media (max-width: $xs-breakpoint)
 		display: none !important
 
 .accent
 	color: $c-a
 
-.wrapper
-	width: 1150px
-	padding-left: 20px
-	padding-right: 20px
-	margin: 0 auto
-	@media (max-width: 1199px)
-		width: 737px
-		padding-left: 15px
-		padding-right: 15px
-	@media (max-width: 767px)
-		width: 100%
-		padding-left: 15px
-		padding-right: 15px
-
-.btn
-	display: inline-block
-	background-color: #000000
-	color: $c-a
-	line-height: normal
-	text-align: center
-	border-radius: 0
-	transition: all 0.4s
-	text-transform: none
-	font-size: 24px
-	border: 2px solid #000
-	cursor: pointer
-	font-weight: 400
-	padding: 11px 37px 12px
-	@media (max-width: 1199px)
-		font-size: 20px
-	&:hover,
-	&:active,
-	&:focus
-		background-color: $c-a
-		text-decoration: none
-		color: #000
-	&.inverted
-		background-color: $c-a
-		text-decoration: none
-		color: #000
-		&:hover,
-		&:active,
-		&:focus
-			background-color: #000000
-			color: $c-a
-
-	&.btn-outline
-		background: #ffffff
-		&:hover,
-		&:active,
-		&:focus
-			background-color: $c-a
-			border-color: $c-a
-	&.btn-full
-		width: 100%
-	&.btn-small
-		padding: 8px 16px 8px
-		font-size: 14px
-		line-height: 16px
-		text-decoration: underline
-	&.btn-big
-		padding-left: 63px
-		padding-right: 63px
-		
-
 .h1
-	font-weight: 400
-	font-size: 48px
-	line-height: normal
-	margin-top: 16px
-	margin-bottom: 16px
+	font-weight: $h1-f-weight
+	font-size: $h1-f-size
+	text-transform: $h1-text-transform
 	text-align: center
-	color: $c-text
 
 .h2
-	font-size: 72px
-	font-weight: 800
-	font-style: italic
-	text-transform: uppercase
-	@media (max-width: 767px)
-		font-size: 36px
+	font-size: $h2-f-size
+	font-weight: $h2-f-weight
+	text-transform: $h2-text-transform
+	text-align: center
 
 .h3
-	font-size: 18px
-	line-height: 23px
-	font-weight: 500
+	font-size: $h3-f-size
+	font-weight: $h3-f-weight
+	text-transform: $h3-text-transform
 
-// Custom select
-/*the container must be positioned relative:*/
-.custom-select
-	position: relative
-	text-align: left
+.h1-desc
+	text-align: $h1-desc-ta
+	.h1
+		margin-bottom: $h1-desc-margin
+	p
+		font-size: $h1-desc-fz
+		color: $h1-desc-c
+		margin-bottom: 0
 
-.custom-select select
-	display: none //hide original SELECT element
-
-
-.select-selected:after
-	position: absolute
-	content: ""
-	top: 17px
-	right: 10px
-	width: 0
-	height: 0
-	border: 6px solid transparent
-	border-color: $c-border transparent transparent transparent
-
-/*point the arrow upwards when the select box is open (active):*/
-.select-selected.select-arrow-active:after
-	top: 10px
-	border-color: transparent transparent $c-border transparent
-
-/*style the items (options), including the selected item:*/
-.select-items div
-	color: $c-text
-	padding: 16px 8px 0px
-	cursor: pointer
-
-.select-selected 
-	color: $c-text
-	padding: 10px 8px 6px
-	border: 1px solid transparent
-	// border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent
-	cursor: pointer
-	
-.select-selected
-	background-color: transparent
-	border: 1px solid $c-border
-	height: 40px
-	&.init
-		color: $c-border
-
-/*style items (options):*/
-.select-items 
-	position: absolute
-	background-color: white
-	border: 1px solid $c-border
-	top: 100%
-	left: 0
-	right: 0
-	z-index: 99
-	border-top: none
-	padding-bottom: 16px
-
-/*hide the items when the select box is closed:*/
-.select-hide
-	display: none
-
-.select-items div:hover, .same-as-selected
-	color: $c-link
-	// background-color: rgba(0, 0, 0, 0.1)
+.h2-desc
+	text-align: $h2-desc-ta
+	.h2
+		margin-bottom: $h2-desc-margin
+	p
+		font-size: $h2-desc-fz
+		color: $h2-desc-c
+		margin-bottom: 0
 
 .radio-cont
 	padding-left: 40px
@@ -307,9 +191,11 @@ ul
 			top: 3px
 			left: 3px
 
+@import "btns"
 @import "sections"
 @import "popup"
 
 //Бургер с анимацией
-@import "_small_parts/burger_with_anim"
+@import "_small_parts/_burgerWithAnim"
+// @import "_small_parts/_customSelect"
 
