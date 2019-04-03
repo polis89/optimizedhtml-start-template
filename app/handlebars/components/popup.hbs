@@ -1,25 +1,42 @@
-<div class="popup mfp-hide" id="popup-application">
+<div class="popup popup--small mfp-hide" id="popup-application">
 	<div class="form">
 		<div class="form-name">
-			Оставьте заявку <br>
-			на участие <br>
-			в контент-форуме
+			Оствьте заявку <br>
+			и мы свяжемся с вами
 		</div>
-		<form action="#" class="popup__form form-call" id="callform">
+		<form action="#" class="popup__form form-call form-validate" id="callform" data-thanks="popup-thanks-1">
 			<div class="input-cont">
-				<input type="text" placeholder="Имя" name="name">
-			</div>
-			<div class="input-cont">
-				<input type="email" placeholder="Email" name="email">
+				<input class="required" type="text" placeholder="Ваше имя" name="name">
 			</div>
 			<div class="input-cont">
-				<input type="tel" placeholder="Номер телефона" name="phone">
+				<input class="required" type="tel" placeholder="Номер телефона" name="phone">
 			</div>
-			<div class="textarea-desc">
-				Комментарий
+			<div class="btn-cont">
+				<button type="submit" value="Заказать" class="btn">
+					<div class="btn-overlay"></div>
+					<span class="text">Заказать</span>
+				</button>
 			</div>
-			<textarea name="text" id="textarea" cols="30" rows="4"></textarea>
-			<input type="submit" class="btn btn-accent-alt btn-full" value="Отправить">
+			<div class="error">
+				Заполните все поля
+			</div>
 		</form>
+	</div>
+</div>
+
+<div class="popup popup--small mfp-hide" id="popup-thanks-1">
+	<div class="form">
+		<div class="form-name">
+			Спасибо за заявку!
+		</div>
+		<div class="form-desc">
+			В скором времени вам позвонит наш менеджер
+		</div>
+		<div class="btn-cont">
+			<button type="button" class="btn close-mfp">
+				<div class="btn-overlay"></div>
+				<span class="text">ОК</span>
+			</button>
+		</div>
 	</div>
 </div>

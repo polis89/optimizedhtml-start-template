@@ -1,13 +1,127 @@
 $(function() {
-	// customSelect();
+	// imgSwitcher();
+	// headerOver();
 	// addScrollTo();
-	// popups();
 	// toTopButton();
+	// popups();
+	// formSubmittion();
+	// customSelect();
 	// addWaypoints();
 	// addMaskedInput();
 	// activateSlickCarousel();
 	// fileInput();
 });
+
+function formSubmittion() {
+	$('.form-validate').on('submit', function (e) {
+		if (validateForm.apply(this)) {
+			// Form validated
+			if ($(this).attr('data-thanks').length > 0) {
+				e.preventDefault();
+				e.stopPropagation();
+				openPopup($(this).attr('data-thanks'));
+			}
+			return true;
+		} else {
+			e.preventDefault();
+			e.stopPropagation();
+			return false;
+		}
+	});
+}
+
+function validateForm() {
+	// this must be bounded to form element
+	if (!this || this.length == 0) {
+		return;
+	}
+	var form = $(this);
+	var validated = true;
+	// Check required fields
+	form.find('.required').each(function (i, el) {
+		if ($(el).val().length < 1) {
+			$(el).addClass('invalid-field');
+			validated = false;
+		} else {
+			$(el).removeClass('invalid-field');
+		}
+	})
+	form.find('.validate-tel').each(function (i, el) {
+		if ($(el).val().length < 1) return;
+		if ($(el).hasClass('incomplete')) {
+			$(el).addClass('invalid-field');
+			validated = false;
+		} else {
+			$(el).removeClass('invalid-field');
+		}
+	})
+	form.find('.validate-text').each(function (i, el) {
+		if ($(el).val().length < 1) return;
+		var reg = /^[^\d\s!@£$%^&*()+=]+$/;
+		var minTextLength = 5;
+		if ($(el).val().match(reg) && $(el).val().length >= minTextLength) {
+			$(el).removeClass('invalid-field');
+		} else {
+			$(el).addClass('invalid-field');
+			validated = false;
+		}
+	})
+	form.find('.validate-email').each(function (i, el) {
+		if ($(el).val().length < 1) return;
+		var reg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		if ($(el).val().toLowerCase().match(reg)) {
+			$(el).removeClass('invalid-field');
+		} else {
+			$(el).addClass('invalid-field');
+			validated = false;
+		}
+	})
+	form.find('.required-select').each(function (i, el) {
+		if ($(el).find('select').val()) {
+			$(el).removeClass('invalid-field');
+		} else {
+			$(el).addClass('invalid-field');
+			validated = false;
+		}
+	})
+	if (!validated) {
+		$(this).addClass('invalid-form');
+	} else {
+		$(this).removeClass('invalid-form');
+	}
+	return validated;
+}
+
+function addScrollTo() {
+	$('a[data-scroll-to]').on('click', function () {
+		var idToScroll = $(this).attr('data-scroll-to');
+		if ($("#" + idToScroll).length > 0) {
+			$('html, body').animate({
+				scrollTop: $("#" + idToScroll).offset().top - 140
+			}, 1000);
+		}
+	});
+}
+
+function headerOver() {
+	$(window).on('scroll', function (e) {
+		if ($(window).scrollTop() > 0) {
+			$('.header .overlay').addClass('active');
+		} else {
+			$('.header .overlay').removeClass('active');
+		}
+	})
+}
+
+function imgSwitcher() {
+	$('.img-switcher .controls .control').on('click', function () {
+		$(this).parents('.controls').find('.control').removeClass('active');
+		$(this).addClass('active');
+		var id = +$(this).attr('data-id');
+		$(this).parents('.img-switcher').find('.big-img').removeClass('active');
+		$(this).parents('.img-switcher').find('.big-img[data-id='+id+']').addClass('active');
+	})
+}
 
 function popups() {
 	$('.open-popup-link').magnificPopup({
@@ -24,7 +138,7 @@ function popups() {
 			}
 		}
 	});
-	$('.mfp-close').on('click', function () {
+	$('.mfp-close, .close-mfp').on('click', function () {
 		$.magnificPopup.close();
 	})
 	// var page = window.location.href.split('/').pop();
@@ -221,16 +335,6 @@ function addWaypoints(){
 		})
 	}
 }
-function addScrollTo(){
-	$('a[data-scroll-to]').on('click',function(){
-		var idToScroll = $(this).attr('data-scroll-to');
-		if ($("#" + idToScroll).length > 0){
-			$('html, body').animate({
-				scrollTop: $("#" + idToScroll).offset().top - 65
-			}, 1000);
-		}
-	});
-}
 function addMaskedInput(){
 	// MaskedInput
 	$(".validate-tel").each(function (i, el) {
@@ -259,87 +363,6 @@ function fileInput() {
 		} else {
 		}
 	})
-}
-
-function validateForm() {
-	// this must be bounded to form element
-	if (!this || this.length == 0) {
-		return;
-	}
-	var form = $(this);
-	var validated = true;
-	// Check required fields
-	form.find('.required').each(function (i, el) {
-		if ($(el).val().length < 1) {
-			$(el).addClass('invalid-field');
-			validated = false;
-		} else {
-			$(el).removeClass('invalid-field');
-		}
-	})
-	form.find('.validate-tel').each(function (i, el) {
-		if ($(el).val().length < 1) return;
-		if ($(el).hasClass('incomplete')) {
-			$(el).addClass('invalid-field');
-			validated = false;
-		} else {
-			$(el).removeClass('invalid-field');
-		}
-	})
-	form.find('.validate-text').each(function (i, el) {
-		if ($(el).val().length < 1) return;
-		var reg = /^[^\d\s!@£$%^&*()+=]+$/;
-		var minTextLength = 5;
-		if ($(el).val().match(reg) && $(el).val().length >= minTextLength) {
-			$(el).removeClass('invalid-field');
-		} else {
-			$(el).addClass('invalid-field');
-			validated = false;
-		}
-	})
-	form.find('.validate-email').each(function (i, el) {
-		if ($(el).val().length < 1) return;
-		var reg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-		if ($(el).val().toLowerCase().match(reg)) {
-			$(el).removeClass('invalid-field');
-		} else {
-			$(el).addClass('invalid-field');
-			validated = false;
-		}
-	})
-	form.find('.required-select').each(function (i, el) {
-		if ($(el).find('select').val()) {
-			$(el).removeClass('invalid-field');
-		} else {
-			$(el).addClass('invalid-field');
-			validated = false;
-		}
-	})
-	if (!validated) {
-		$(this).addClass('invalid-form');
-	} else {
-		$(this).removeClass('invalid-form');
-	}
-	return validated;
-}
-
-function formSubmittion() {
-
-	$('.form-validate').on('submit', function (e) {
-		if (validateForm.apply(this)) {
-			// Form validated
-			if ($(this).attr('data-thanks').length > 0) {
-				e.preventDefault();
-				e.stopPropagation();
-				openPopup($(this).attr('data-thanks'));
-			}
-			return true;
-		} else {
-			e.preventDefault();
-			e.stopPropagation();
-			return false;
-		}
-	});
 }
 
 function openPopup(popupId) {
